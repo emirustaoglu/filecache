@@ -61,13 +61,15 @@ class filecache
             return false;
         }
         $filePath = $this->cacheDir . $this->getCacheName($cacheName) . ".json";
-        $fileCreationTime = filectime($filePath);
-        $currentTime = time();
-        $timeDifference = $currentTime - $fileCreationTime;
-        if ($timeDifference > $this->cacheMinutes) {
-            unlink($this->cacheDir . $this->getCacheName($cacheName) . ".json");
-            return false;
+        if ($this->cacheMinutes != 0) {
+            $fileCreationTime = filectime($filePath);
+            $currentTime = time();
+            $timeDifference = $currentTime - $fileCreationTime;
+            if ($timeDifference > $this->cacheMinutes) {
+                unlink($this->cacheDir . $this->getCacheName($cacheName) . ".json");
+                return false;
 
+            }
         }
         $CacheDosya = file_get_contents($this->cacheDir . base64_encode($cacheName) . ".json");
         return json_decode($CacheDosya);
