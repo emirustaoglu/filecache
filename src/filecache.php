@@ -71,7 +71,7 @@ class filecache
 
             }
         }
-        $CacheDosya = file_get_contents($this->cacheDir . base64_encode($cacheName) . ".json");
+        $CacheDosya = file_get_contents($this->cacheDir . $this->getCacheName($cacheName) . ".json");
         return json_decode($CacheDosya);
     }
 
