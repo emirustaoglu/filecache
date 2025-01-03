@@ -55,7 +55,7 @@ class filecache
      * @string $cacheName Okunacak Cache dosya adını veriniz.
      * @return false|mixed
      */
-    public function getCache($cacheName)
+    public function getCache($cacheName, $associative = false)
     {
         if (!file_exists($this->cacheDir . $this->getCacheName($cacheName) . ".json")) {
             return false;
@@ -71,8 +71,7 @@ class filecache
 
             }
         }
-        $CacheDosya = file_get_contents($this->cacheDir . $this->getCacheName($cacheName) . ".json");
-        return json_decode($CacheDosya);
+        return json_decode($this->cacheDir . $this->getCacheName($cacheName) . ".json", $associative);
     }
 
     /**
